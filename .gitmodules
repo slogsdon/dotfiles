@@ -1,0 +1,6 @@
+[submodule "vundle"]
+	path = vim/bundle/Vundle.vim
+	url = https://github.com/gmarik/Vundle.vim
+[submodule "zshuery"]
+	path = zshuery
+	url = https://github.com/myfreeweb/zshuery
