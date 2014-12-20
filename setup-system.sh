@@ -54,6 +54,8 @@ binaries=(
   clojurescript
   dmd # dlang
   ansible
+  rbenv
+  ruby-build
 )
 
 echo "installing binaries..."

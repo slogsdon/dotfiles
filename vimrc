@@ -19,7 +19,6 @@ Plugin 'wting/rust.vim'
 Plugin 'eagletmt/ghcmod-vim'
 Plugin 'oscarh/vimerl'
 Plugin 'spf13/PIV'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'vim-scripts/bufexplorer.zip'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
@@ -30,8 +29,17 @@ Plugin 'tpope/vim-markdown'
 Plugin 'vim-scripts/nginx.vim'
 Plugin 'amix/vimrc'
 Plugin 'bling/vim-airline'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'majutsushi/tagbar'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/vimproc'
+Plugin 'wlangstroth/vim-racket'
 
-" All of your plugins must be aadded before the following
+" All of your plugins must be added before the following
 call vundle#end()         " required
 filetype plugin indent on " required
 "
@@ -40,6 +48,7 @@ filetype plugin indent on " required
 
 "colorscheme tomorrow-night-eighties
 " source ~/.config/vim/colors/Tomorrow-Night-Eighties.vim
+let g:airline_theme="bubblegum"
 
 if has("gui_running")
     set guifont=Source\ Code\ Pro\ for\ Powerline:h10
@@ -238,6 +247,15 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+" stop using arrow keys!
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -624,21 +642,21 @@ let g:multi_cursor_next_key="\<C-s>"
 vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
-" Alias for ctrlp.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ctrlp.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>p :CtrlP<cr>
 
 let g:slime_target = "tmux"
 
-" Go related nmaps
-nmap <leader>r :!go run % <cr>
-nmap <Leader>t :!revel test %:h <cr>
-nmap <Leader>i :call TmuxSend("clear; go install\n") <cr>
-nmap <Leader>b :call TmuxSend("clear; go build\n") <cr>
-nmap <Leader>y :Fmt <cr> :w <cr>
-nmap <Leader>d :Godoc <cr>
-" auto "go fmt"
-"autocmd BufWritePre *.go Fmt
-"autocmd FileType go autocmd BufWritePre <buffer> Fmt
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Go
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_fmt_command = "goimports"
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
 
 " Syntax Completion
 filetype plugin on
@@ -647,3 +665,9 @@ set ofu=syntaxcomplete#Complete
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
+" syntastic
+let g:syntastic_enable_elixir_checker = 1
+
+" markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
