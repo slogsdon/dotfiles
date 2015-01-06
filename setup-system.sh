@@ -25,7 +25,6 @@ binaries=(
   rename
   zopfli
   ffmpeg
-  sshfs
   trash
   tree
   ack
@@ -79,7 +78,6 @@ brew install caskroom/cask/brew-cask
 # Apps
 apps=(
   alfred
-  dropbox
   google-chrome
   qlcolorcode
   screenflick
@@ -123,6 +121,7 @@ apps=(
   remote-desktop-connection
   rust
   the-unarchiver
+  dropbox
 )
 
 # Install apps to /Applications
