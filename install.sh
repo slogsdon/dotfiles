@@ -6,3 +6,5 @@ ln -s $HOME/.dotfiles/vim/ $HOME/.vim
 ln -s $HOME/.dotfiles/zshrc $HOME/.zshrc
 ln -s $HOME/.dotfiles/weechat $HOME/.weechat
 ln -s $HOME/.dotfiles/powerline $HOME/.powerline
+ln -s $HOME/.dotfiles/emacs.d $HOME/.emacs.d
+ln -s $HOME/.dotfiles/hushlogin $HOME/.hushlogin

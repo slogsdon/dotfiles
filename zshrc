@@ -50,3 +50,6 @@ if which kvm.sh > /dev/null; then source kvm.sh; fi
 
 # Racket
 export PATH="$PATH:/Applications/Racket/bin"
+
+# Mix local
+export PATH="$PATH:$HOME/.mix"
