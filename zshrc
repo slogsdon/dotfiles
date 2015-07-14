@@ -30,13 +30,11 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export GOPATH=$HOME/Code/go
 export PATH="$PATH:$GOPATH/bin"
 
-# Haskell
-export PATH="$PATH:$HOME/.cabal/bin"
-
 # Postgres.app
 export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin"
 
-alias vi="vim"
+alias vi="nvim"
+alias vim="nvim"
 alias tmux="TERM=screen-256color-bce tmux"
 
 ### Added by the Heroku Toolbelt
@@ -46,10 +44,25 @@ export PATH="/usr/local/heroku/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # ASPvNext
-if which kvm.sh > /dev/null; then source kvm.sh; fi
+if which dnvm.sh > /dev/null; then source dnvm.sh; fi
 
 # Racket
 export PATH="$PATH:/Applications/Racket/bin"
 
 # Mix local
 export PATH="$PATH:$HOME/.mix"
+
+# Haskell
+eval "$( /app/halcyon/halcyon paths )"
+#export PATH="$PATH:/app/halcyon:/app/bin:/app/cabal:/app/ghc"
+autoload -U bashcompinit && bashcompinit
+source <(stack --bash-completion-script `which stack`)
+
+# Docker/boot2docker
+if [[ -f `which boot2docker` ]]; then eval "$(boot2docker shellinit > /dev/null)"; fi
+
+# random tools
+export PATH="$PATH:$HOME/bin"
+
+# FSharp
+export MONO_GAC_PREFIX="/usr/local"

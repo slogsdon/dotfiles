@@ -1,58 +1,55 @@
-"
 " START VUNDLE
+"
 "
 set nocompatible          " be iMproved, required
 filetype off              " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" set the runtime path to include Plug and initialize
+let g:plug_shallow = 0
+call plug#begin('~/.vim/bundle/')
 
 " Language Plugins
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'oscarh/vimerl'
-Plugin 'fatih/vim-go'
-Plugin 'vim-scripts/lua.vim'
-Plugin 'tpope/vim-markdown'
-Plugin 'vim-scripts/nginx.vim'
-Plugin 'wlangstroth/vim-racket'
-Plugin 'wting/rust.vim'
-Plugin 'vim-ruby/vim-ruby'
+Plug 'kchmck/vim-coffee-script'
+Plug 'elixir-lang/vim-elixir'
+Plug 'oscarh/vimerl'
+Plug 'fatih/vim-go'
+Plug 'vim-scripts/lua.vim'
+Plug 'tpope/vim-markdown'
+Plug 'vim-scripts/nginx.vim'
+Plug 'wlangstroth/vim-racket'
+Plug 'wting/rust.vim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'fsharp/vim-fsharp'
 
 " Language Support Plugins
-Plugin 'eagletmt/ghcmod-vim'
-Plugin 'spf13/PIV'
-Plugin 'philopon/hassistant.vim'
+Plug 'eagletmt/ghcmod-vim'
+Plug 'spf13/PIV'
+"Plug 'philopon/hassistant.vim'
+"Plug 'bitc/vim-hdevtools'
+Plug 'OmniSharp/omnisharp-vim'
 
 " Interface Plugins
-Plugin 'bling/vim-airline'
-Plugin 'vim-scripts/bufexplorer.zip'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'edkolev/tmuxline.vim'
+Plug 'bling/vim-airline'
+Plug 'vim-scripts/bufexplorer.zip'
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'myusuf3/numbers.vim'
+Plug 'majutsushi/tagbar'
+Plug 'edkolev/tmuxline.vim'
 
 " Utility Plugins
-Plugin 'tpope/vim-fugitive'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'xolox/vim-misc'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/vimproc'
-Plugin 'amix/vimrc'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'dahu/vimple'
+Plug 'tpope/vim-fugitive'
+"Plug 'michaeljsmith/vim-indent-object'
+Plug 'xolox/vim-misc'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'Shougo/vimproc', { 'do': 'make' }
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'vim-scripts/taglist.vim'
 
 " All of your plugins must be added before the following
-call vundle#end()         " required
-filetype plugin indent on " required
+call plug#end()         " required
 "
 " END VUNDLE
 "
@@ -570,71 +567,6 @@ let g:multi_cursor_next_key="\<C-s>"
 vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => neocomplete
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" Syntax Completion
-filetype plugin on
-set ofu=syntaxcomplete#Complete
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -645,6 +577,15 @@ let g:airline#extensions#tabline#enabled = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 let g:syntastic_enable_elixir_checker = 1
 let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=PSR2 -n --report=csv"
@@ -733,3 +674,8 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType elixir setlocal shiftwidth=2 tabstop=2
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Haskell
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:hdevtools_options = '-g-isrc -g-Wall'
+"let g:syntastic_haskell_hdevtools_args = '-g-isrc -g-Wall'
