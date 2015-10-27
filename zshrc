@@ -7,7 +7,7 @@ load_correction
 
 prompts '%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}$(ruby_version)%{$reset_color%}'
 
-export EDITOR='vim'
+export EDITOR='emacsclient -t'
 bindkey -e # force emacs bindings
 
 chpwd() {
@@ -23,7 +23,7 @@ chpwd() {
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-export TERM="xterm-256color"
+#export TERM="xterm-256color"
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Go
@@ -36,6 +36,8 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin"
 alias vi="nvim"
 alias vim="nvim"
 alias tmux="TERM=screen-256color-bce tmux"
+alias ec="emacsclient -t"
+alias ecg="emacsclient -c"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -53,6 +55,7 @@ export PATH="$PATH:/Applications/Racket/bin"
 export PATH="$PATH:$HOME/.mix"
 
 # Haskell
+export PATH="$PATH:$HOME/.cabal/bin"
 eval "$( /app/halcyon/halcyon paths )"
 #export PATH="$PATH:/app/halcyon:/app/bin:/app/cabal:/app/ghc"
 autoload -U bashcompinit && bashcompinit

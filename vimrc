@@ -10,23 +10,28 @@ call plug#begin('~/.vim/bundle/')
 
 " Language Plugins
 Plug 'kchmck/vim-coffee-script'
-Plug 'elixir-lang/vim-elixir'
-Plug 'oscarh/vimerl'
-Plug 'fatih/vim-go'
-Plug 'vim-scripts/lua.vim'
-Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/nginx.vim'
-Plug 'wlangstroth/vim-racket'
-Plug 'wting/rust.vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'fsharp/vim-fsharp'
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'oscarh/vimerl', { 'for': 'erlang' }
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'vim-scripts/lua.vim', { 'for': 'lua' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
+Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
+Plug 'wting/rust.vim', { 'for': 'rust' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
+"Plug 'raichoo/haskell-vim', { 'for': 'haskell' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " Language Support Plugins
-Plug 'eagletmt/ghcmod-vim'
-Plug 'spf13/PIV'
-"Plug 'philopon/hassistant.vim'
-"Plug 'bitc/vim-hdevtools'
+Plug 'spf13/PIV', { 'for': 'php' }
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+
+"" Haskell
+"Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
+"Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+"Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 
 " Interface Plugins
 Plug 'bling/vim-airline'
@@ -35,7 +40,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'myusuf3/numbers.vim'
 Plug 'majutsushi/tagbar'
-Plug 'edkolev/tmuxline.vim'
+"Plug 'edkolev/tmuxline.vim'
 
 " Utility Plugins
 Plug 'tpope/vim-fugitive'
@@ -53,6 +58,8 @@ call plug#end()         " required
 "
 " END VUNDLE
 "
+
+set mouse=
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -173,9 +180,6 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" No autoindent on paste
-"command Paste execute 'set noai | insert | set ai'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -279,15 +283,6 @@ if has("mac") || has("macunix")
   vmap <D-k> <M-k>
 endif
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
 func! <SID>StripTrailingWhitespace()
   let l = line(".")
   let c = col(".")
@@ -295,26 +290,6 @@ func! <SID>StripTrailingWhitespace()
   call cursor(l, c)
 endfunc
 autocmd BufWritePre * :call <SID>StripTrailingWhitespace()
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimgrep searching and cope displaying
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-
-" Vimgreps in the current file
-map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -404,44 +379,6 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-func! DeleteTillSlash()
-    let g:cmd = getcmdline()
-
-    if has("win16") || has("win32")
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-    else
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
-    endif
-
-    if g:cmd == g:cmd_edited
-        if has("win16") || has("win32")
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-        else
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
-        endif
-    endif
-
-    return g:cmd_edited
-endfunc
-
-func! CurrentFileDir(cmd)
-    return a:cmd . " " . expand("%:p:h") . "/"
-endfunc
-
-" Prevent issues with vim-multiple-cursors and neocomplete
-" Called once right before you start selecting multiple cursors
-function! Multiple_cursors_before()
-  if exists(':NeoCompleteLock')==2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
-
-" Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists(':NeoCompleteUnlock')==2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GUI related
@@ -487,33 +424,6 @@ try
 catch
 endtry
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Command mode related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart mappings on the command line
-cno $h e ~/
-cno $d e ~/Desktop/
-cno $j e ./
-cno $c e <C-\>eCurrentFileDir("e")<cr>
-
-" $q is super useful when browsing on the command line
-" it deletes everything until the last slash
-cno $q <C-\>eDeleteTillSlash()<cr>
-
-" Bash like keys for the command line
-cnoremap <C-A>		<Home>
-cnoremap <C-E>		<End>
-cnoremap <C-K>		<C-U>
-
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-
-" Map ½ to something useful
-map ½ $
-cmap ½ $
-imap ½ $
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => bufExplorer plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -533,17 +443,14 @@ let g:ctrlp_map = '<c-f>'
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
-let g:slime_target = "tmux"
-
 map <c-b> :CtrlPBuffer<cr>
 map <leader>p :CtrlP<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim grep
+" => slime
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
-set grepprg=/bin/grep\ -nH
+let g:slime_target = "tmux"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -558,14 +465,6 @@ map <leader>nf :NERDTreeFind<cr>
 " => vim-multiple-cursors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:multi_cursor_next_key="\<C-s>"
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => surround.vim config
-" Annotate strings with gettext http://amix.dk/blog/post/19678
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
@@ -586,9 +485,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_enable_elixir_checker = 1
-let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=PSR2 -n --report=csv"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Python section
@@ -614,7 +510,6 @@ au FileType python map <buffer> <leader>D ?def
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
 
@@ -624,26 +519,8 @@ au FileType javascript imap <c-a> alert();<esc>hi
 au FileType javascript inoremap <buffer> $r return
 au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
 
-function! JavaScriptFold()
-    setl foldmethod=syntax
-    setl foldlevelstart=1
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+let g:syntastic_javascript_checkers = ['jshint']
 
-    function! FoldText()
-        return substitute(getline(v:foldstart), '{.*', '{...}', '')
-    endfunction
-    setl foldtext=FoldText()
-endfunction
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CoffeeScript section
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CoffeeScriptFold()
-    setl foldmethod=indent
-    setl foldlevelstart=1
-endfunction
-"au FileType coffee call CoffeeScriptFold()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Go
@@ -664,6 +541,9 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType php setlocal shiftwidth=4 tabstop=4
 
+let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_phpcs_args = "--standard=PSR2 -n --report=csv"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ruby
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -674,8 +554,12 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType elixir setlocal shiftwidth=2 tabstop=2
 
+let g:syntastic_enable_elixir_checker = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Haskell
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:hdevtools_options = '-g-isrc -g-Wall'
-"let g:syntastic_haskell_hdevtools_args = '-g-isrc -g-Wall'
+"autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
+"let g:hscoptions = ''
