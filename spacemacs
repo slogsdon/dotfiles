@@ -45,6 +45,9 @@ values."
      python
      typescript
      javascript
+     csharp
+     fsharp
+     haskell
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -88,8 +91,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(base16-default-dark
-                         base16-eighties-dark
+   dotspacemacs-themes '(base16-eighties-dark
+                         base16-default-dark
                          base16-tomorrow-dark
                          monokai
                          zenburn
@@ -98,7 +101,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Fira Code"
                                :size 13
                                :weight normal
                                :width normal
@@ -201,6 +204,11 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  ;; Follow symlinks when opening
+  (setq vc-follow-symlinks t)
+  (setq-default flycheck-indication-mode 'left-fringe)
+  (setq-default left-fringe-width 10)
+  (setq-default buffer-file-coding-system 'unix)
   )
 
 (defun dotspacemacs/user-config ()
@@ -209,7 +217,7 @@ user code."
 layers configuration. You are free to put any user code."
   ;; Set escape keybinding to "jk"
   (setq-default evil-escape-key-sequence "jk")
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
