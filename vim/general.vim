@@ -24,6 +24,7 @@ set tm=500
 set foldcolumn=1 " Add a bit extra margin to the left
 syntax enable " Enable syntax highlighting
 set background=dark
+colorscheme tomorrow-night-eighties
 set encoding=utf8 " set utf8 as standard encoding
 set ffs=unix,dos,mac " Use unix as the standard file type
 
