@@ -19,6 +19,13 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" slime
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+let g:slime_no_mappings = 1
+
+" Javascript
 let g:syntastic_javascript_checkers = ['jshint']
 
 " Markdown
@@ -39,7 +46,8 @@ autocmd FileType elixir setlocal shiftwidth=2 tabstop=2
 let g:syntastic_enable_elixir_checker = 1
 
 " Haskell
-"autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
-"let g:hscoptions = ''
+let g:hscoptions = ''
