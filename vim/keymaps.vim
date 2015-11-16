@@ -21,7 +21,7 @@ map <leader>bo :BufExplorer<cr>
 
 " Files
 map <leader>fp :CtrlP<cr>
-map <leader>ft :NERDTreeToggle<cr>
+map <leader>ft :Explore<cr>
 map <leader>fs :w<cr>
 
 " fugitive

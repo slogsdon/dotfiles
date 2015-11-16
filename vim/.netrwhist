@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/shane/.dotfiles'
-let g:netrw_dirhist_2='/Users/shane/Code/go/src/github.com/slogsdon/b'
-let g:netrw_dirhist_3='/Users/shane.logsdon/Code/haskell/haskell-exercises/write-a-scheme/evaluation-part1/src/Parser'

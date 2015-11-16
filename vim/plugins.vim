@@ -26,7 +26,6 @@ Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 " Interface Plugins
 Plug 'vim-scripts/bufexplorer.zip'
 Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'myusuf3/numbers.vim'
 Plug 'altercation/vim-colors-solarized'
 

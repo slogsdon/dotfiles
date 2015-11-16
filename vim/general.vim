@@ -48,6 +48,7 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+let g:netrw_liststyle=3 " netrw tree view
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
