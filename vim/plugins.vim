@@ -35,7 +35,7 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc', { 'do': 'make' }
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
-Plug 'jpalardy/vim-slime'
+Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
 
 " All of your plugins must be added before the following

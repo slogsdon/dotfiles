@@ -11,16 +11,14 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|_build\|deps\'
 
 " syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" slime
+" vimux
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "40"
 let g:slime_target = "tmux"
 let g:slime_paste_file = tempname()
 let g:slime_no_mappings = 1
