@@ -17,7 +17,14 @@ map <leader>xp :setlocal paste!<cr>
 
 " Buffers
 map <leader>bd :bd<cr>
-map <leader>bo :BufExplorer<cr>
+map <leader>bo :BufExplorerHorizontalSplit<cr>
+map <leader>bn :bnext<cr>
+map <leader>bp :bprev<cr>
+
+" comments
+map <leader>cl gcc
+map <leader>cp gcap
+map <leader>cs gcc
 
 " Files
 map <leader>fp :CtrlP<cr>

@@ -21,7 +21,9 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'sanmiguel/helpex.vim', { 'for': 'elixir' }
 
 " Interface Plugins
 Plug 'vim-scripts/bufexplorer.zip'
@@ -36,6 +38,9 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-fugitive'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Thinca/vim-ref' " needed by helpex.vim
+Plug 'tpope/vim-commentary'
 
 " All of your plugins must be added before the following
 call plug#end()         " required
