@@ -6,6 +6,7 @@ set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
 set ruler " Always show current position
 set number " Show current line number in NORMAL and absolute line numbers in INSERT.
 set cmdheight=1 " Height of the command bar
+set hidden
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
