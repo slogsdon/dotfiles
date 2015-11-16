@@ -1,3 +1,17 @@
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" stop using arrow keys!
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
 " Extras
 map <leader>xp :setlocal paste!<cr>
 
