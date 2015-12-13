@@ -16,6 +16,7 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
 Plug 'raichoo/haskell-vim', { 'for': 'haskell' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'lambdatoast/elm.vim'
 
 " Language Support Plugins
 Plug 'spf13/PIV', { 'for': 'php' }

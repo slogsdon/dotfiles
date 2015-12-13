@@ -24,7 +24,7 @@ alias ecg="emacsclient -c"
 
 # Go
 export GOPATH=$HOME/Code/go
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 
 # Postgres.app
 export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin"
@@ -33,7 +33,9 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+if type rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # ASPvNext
 if which dnvm.sh > /dev/null; then source dnvm.sh; fi
@@ -47,7 +49,8 @@ export PATH="$PATH:$HOME/.mix"
 # Haskell
 export PATH="$PATH:$HOME/.cabal/bin"
 autoload -U bashcompinit && bashcompinit
-source <(stack --bash-completion-script `which stack`)
+if which stack > /dev/null; then source <(stack --bash-completion-script `which stack`); fi
+export PATH="$PATH:$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin:$HOME/.local/bin"
 
 # random tools
 export PATH="$PATH:$HOME/bin"
