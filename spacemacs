@@ -28,12 +28,14 @@ values."
      emacs-lisp
      git
      markdown
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (org :variables
+          org-enable-github-support t)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      spell-checking
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips nil)
      ;; version-control
      ;; ----------------------------------------------------------------
      ;; Language Support
@@ -48,12 +50,14 @@ values."
      csharp
      fsharp
      haskell
+     racket
+     rust
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(web-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(php-extras)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -102,7 +106,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Fira Code"
-                               :size 13
+                               :size 10
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -204,11 +208,10 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  (setq-default buffer-file-coding-system 'unix
+                )
   ;; Follow symlinks when opening
   (setq vc-follow-symlinks t)
-  (setq-default flycheck-indication-mode 'left-fringe)
-  (setq-default left-fringe-width 10)
-  (setq-default buffer-file-coding-system 'unix)
   )
 
 (defun dotspacemacs/user-config ()
@@ -216,7 +219,13 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   ;; Set escape keybinding to "jk"
-  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-key-sequence "jk"
+                )
+  (setq powerline-default-separator nil
+        )
+  (global-linum-mode 1)
+  (global-company-mode)
+  (add-to-list 'auto-mode-alist '("\\.p[pmd]+\\'" . racket-mode))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

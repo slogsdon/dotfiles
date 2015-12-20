@@ -16,6 +16,8 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
 Plug 'raichoo/haskell-vim', { 'for': 'haskell' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
+Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 " Language Support Plugins
 Plug 'OmniSharp/omnisharp-vim'
@@ -30,6 +32,9 @@ Plug 'vim-scripts/bufexplorer.zip'
 Plug 'kien/ctrlp.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'ap/vim-buftabline'
 
 " Utility Plugins
 Plug 'Shougo/neocomplete.vim'

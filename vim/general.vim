@@ -25,9 +25,11 @@ set tm=500
 set foldcolumn=1 " Add a bit extra margin to the left
 syntax enable " Enable syntax highlighting
 set background=dark
-colorscheme solarized
+colorscheme tomorrow-night-eighties
 set encoding=utf8 " set utf8 as standard encoding
 set ffs=unix,dos,mac " Use unix as the standard file type
+set laststatus=2 " show status line always
+set noshowmode " don't show status in command line
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
