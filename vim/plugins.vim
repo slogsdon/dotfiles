@@ -11,29 +11,41 @@ Plug 'oscarh/vimerl', { 'for': 'erlang' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
-Plug 'wting/rust.vim', { 'for': 'rust' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
 Plug 'raichoo/haskell-vim', { 'for': 'haskell' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'lambdatoast/elm.vim'
+Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
+Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 " Language Support Plugins
-Plug 'spf13/PIV', { 'for': 'php' }
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'sanmiguel/helpex.vim', { 'for': 'elixir' }
 
 " Interface Plugins
 Plug 'vim-scripts/bufexplorer.zip'
 Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'myusuf3/numbers.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'ap/vim-buftabline'
 
 " Utility Plugins
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc', { 'do': 'make' }
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
+Plug 'benmills/vimux'
+Plug 'tpope/vim-fugitive'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Thinca/vim-ref' " needed by helpex.vim
+Plug 'tpope/vim-commentary'
 
 " All of your plugins must be added before the following
 call plug#end()         " required

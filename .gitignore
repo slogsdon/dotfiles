@@ -2,4 +2,5 @@ weechat/logs/
 weechat/weechat.log
 .DS_Store
 vim/bundle/
-emacs.d
+emacs.d/elpa/
+vim/.netrwhist
