@@ -1,1 +1,0 @@
-("~/code-remote/haskell/haskell-programming-exercises/" "~/.dotfiles/" "~/code/php/drupalcommerce/modules/commerce_securesubmit/")
