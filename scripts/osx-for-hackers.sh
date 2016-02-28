@@ -33,7 +33,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 cecho "##############################################" $white
-cecho "#  This script will make your Ã¯Â£Â¿ Mac awesome." $white
+cecho "#  This script will make your ⌘ Mac awesome." $white
 cecho "#   Follow the prompts and you'll be fine." $white
 cecho "#" $white
 cecho "#            ~ Happy Hacking ~" $white
