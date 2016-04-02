@@ -101,7 +101,7 @@
     " }}}
     " Interface {{{
       Plug 'vim-scripts/bufexplorer.zip'
-      Plug 'kien/ctrlp.vim'
+      Plug 'ctrlpvim/ctrlp.vim'
       Plug 'myusuf3/numbers.vim'
       Plug 'altercation/vim-colors-solarized'
       Plug 'itchyny/lightline.vim'
@@ -116,6 +116,7 @@
       Plug 'benmills/vimux'
       Plug 'benekastah/neomake'
       Plug 'Shougo/deoplete.nvim'
+      Plug 'ervandew/supertab'
       Plug 'janko-m/vim-test'
     " }}}
     call plug#end()
@@ -132,7 +133,11 @@
     let g:ctrlp_working_path_mode=0
     let g:ctrlp_map='<c-f>'
     let g:ctrlp_max_height=20
-    let g:ctrlp_custom_ignore='node_modules\|^\.DS_Store\|^\.git\|_build\|deps\'
+    let g:ctrlp_custom_ignore={
+      \ 'dir': 'node_modules\|^\.DS_Store\|^\.(hg|svn|git)\|(_build|deps|vendor)\',
+      \ 'file': '',
+      \ 'link': '',
+      \ }
   " }}}
   " deoplete {{{
     let g:deoplete#enable_at_startup=1
@@ -181,6 +186,9 @@
     let g:slime_target="tmux"
     let g:slime_paste_file=tempname()
     let g:slime_no_mappings=1
+  " }}}
+  " vim-test {{{
+    let g:test#strategy = "neovim"
   " }}}
 " }}}
 " Languages {{{
