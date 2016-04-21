@@ -1,5 +1,6 @@
 export EDITOR='vim'
 export LANG=en_US.UTF-8
+export LC_ALL="$LANG"
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
 
 # LaTeX
@@ -29,3 +30,6 @@ export PATH="$PATH:$HOME/bin"
 
 # FSharp
 export MONO_GAC_PREFIX="/usr/local"
+
+# Rust
+export PATH="$PATH:$HOME/.multirust/toolchains/stable/cargo/bin"
