@@ -1,0 +1,6 @@
+[user]
+	email = shane@shanelogsdon.com
+	name = Shane Logsdon
+	signingkey = 8CFE600F
+[commit]
+	gpgsign = true
