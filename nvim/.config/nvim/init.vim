@@ -85,20 +85,6 @@
   " }}}
   " Plugins {{{
     call plug#begin('~/.config/nvim/plugged')
-    " Language {{{
-      Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-      Plug 'oscarh/vimerl', { 'for': 'erlang' }
-      Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-      Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
-      Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
-      Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-      Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-      Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
-      Plug 'raichoo/haskell-vim', { 'for': 'haskell' }
-      Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-      Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
-      Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-    " }}}
     " Interface {{{
       Plug 'vim-scripts/bufexplorer.zip'
       Plug 'ctrlpvim/ctrlp.vim'
@@ -109,6 +95,7 @@
       Plug 'ap/vim-buftabline'
     " }}}
     " Utility {{{
+      Plug 'Konfekt/FastFold'
       Plug 'benmills/vimux'
       Plug 'tpope/vim-fugitive'
       Plug 'terryma/vim-multiple-cursors'
@@ -118,6 +105,22 @@
       Plug 'Shougo/deoplete.nvim'
       Plug 'ervandew/supertab'
       Plug 'janko-m/vim-test'
+      Plug 'godlygeek/tabular'
+    " }}}
+    " Language {{{
+      Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+      Plug 'oscarh/vimerl', { 'for': 'erlang' }
+      Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+      Plug 'vim-scripts/nginx.vim', { 'for': 'nginx' }
+      Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
+      Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+      Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+      Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+      Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
+      Plug 'raichoo/haskell-vim', { 'for': 'haskell' }
+      Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+      Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
+      Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
     " }}}
     call plug#end()
   " }}}
@@ -189,6 +192,10 @@
   " }}}
   " vim-test {{{
     let g:test#strategy = "neovim"
+  " }}}
+  " vim-racer {{{
+    let g:racer_cmd = "/home/shane/.multirust/toolchains/stable/cargo/bin/racer"
+    let $RUST_SRC_PATH="/home/shane/code/rust/source/src/"
   " }}}
 " }}}
 " Languages {{{

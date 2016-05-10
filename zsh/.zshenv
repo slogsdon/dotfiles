@@ -33,3 +33,6 @@ export MONO_GAC_PREFIX="/usr/local"
 
 # Rust
 export PATH="$PATH:$HOME/.multirust/toolchains/stable/cargo/bin"
+
+# Linuxbrew
+export PATH="$HOME/.linuxbrew/bin:$PATH"
