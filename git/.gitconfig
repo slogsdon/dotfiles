@@ -4,3 +4,5 @@
 	signingkey = 8CFE600F
 [commit]
 	gpgsign = true
+[push]
+	default = simple
