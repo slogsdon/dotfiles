@@ -2,16 +2,22 @@
   set timeoutlen=1500
   let mapleader=" "
   let g:mapleader=" "
+  let g:lmap = {}
 " }}}
 " Buffers {{{
+  let g:lmap.b = { 'name': 'Buffers' }
   " buffer delete
   nmap <leader>bd    :bd<cr>
+  let g:lmap.b.d = ['bd', 'buffer delete']
   " buffer list
   nmap <leader>bl    :BufExplorerHorizontalSplit<cr>
+  let g:lmap.b.l = ['BufExplorerHorizontalSplit', 'buffer list']
   " buffer next
   nmap <leader>bn    :bnext<cr>
+  let g:lmap.b.n = ['bnext', 'buffer next']
   " buffer previous
   nmap <leader>bp    :bprev<cr>
+  let g:lmap.b.p = ['bprev', 'buffer previous']
 " }}}
 " Comments {{{
   " comment line

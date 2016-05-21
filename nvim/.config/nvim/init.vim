@@ -93,6 +93,7 @@
       Plug 'itchyny/lightline.vim'
       Plug 'edkolev/tmuxline.vim'
       Plug 'ap/vim-buftabline'
+      Plug 'hecal3/vim-leader-guide'
     " }}}
     " Utility {{{
       Plug 'Konfekt/FastFold'
@@ -121,6 +122,7 @@
       Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
       Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
       Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+      Plug 'tpope/vim-obsession'
     " }}}
     call plug#end()
   " }}}

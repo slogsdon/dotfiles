@@ -6,3 +6,5 @@
 	gpgsign = true
 [push]
 	default = simple
+[alias]
+        log = log --graph --decorate --pretty=oneline --abbrev-commit

@@ -1,1 +1,0 @@
-/home/shane/.dotfiles/zsh/zshenv
