@@ -1,5 +1,5 @@
 # emacs
-emacs.d/elpa/
+emacs/.emacs.d/elpa/
 
 # nvim
 autoload/

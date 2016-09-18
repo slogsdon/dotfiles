@@ -33,6 +33,13 @@ export MONO_GAC_PREFIX="/usr/local"
 
 # Rust
 export PATH="$PATH:$HOME/.multirust/toolchains/stable/cargo/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+export RUST_SRC_PATH="/usr/local/src/rust/src"
+export CARGO_HOME="$HOME/.cargo"
 
 # Linuxbrew
 export PATH="$HOME/.linuxbrew/bin:$PATH"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"

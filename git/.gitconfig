@@ -8,3 +8,9 @@
 	default = simple
 [alias]
         log = log --graph --decorate --pretty=oneline --abbrev-commit
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[credential]
+	helper = osxkeychain

@@ -24,20 +24,20 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     better-defaults
-     emacs-lisp
+     ;; better-defaults
+     ;; emacs-lisp
      git
      markdown
      ;; (org :variables
      ;;      org-enable-github-support t)
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     spell-checking
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     ;; spell-checking
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      ;; version-control
-     restclient
+     ;; restclient
      ;; ----------------------------------------------------------------
      ;; Language Support
      ;; ----------------------------------------------------------------
@@ -60,7 +60,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(web-mode)
+   dotspacemacs-additional-packages
+   '(
+     web-mode
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(php-extras)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -116,6 +119,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(base16-eighties-dark
+                         spacemacs-dark
                          base16-default-dark
                          base16-tomorrow-dark
                          monokai
@@ -224,7 +228,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil

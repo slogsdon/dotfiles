@@ -32,8 +32,6 @@ alias ecg="emacsclient -c"
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 if type rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # ASPvNext
@@ -42,3 +40,6 @@ if which dnvm.sh > /dev/null; then source dnvm.sh; fi
 # Haskell
 autoload -U bashcompinit && bashcompinit
 if which stack > /dev/null; then source <(stack --bash-completion-script `which stack`); fi
+
+# OPAM configuration
+. /home/user/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
