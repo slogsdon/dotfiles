@@ -8,8 +8,55 @@
 			endif
 		" }}}
     call plug#begin('~/.vim/plugged')
+    " Better Whitespace {{{
+      Plug 'ntpeters/vim-better-whitespace'
+    " }}}
+    " Buffer Explorer {{{
+      Plug 'vim-scripts/bufexplorer.zip'
+      let g:bufExplorerDefaultHelp=0
+      let g:bufExplorerShowRelativePath=1
+      let g:bufExplorerFindActive=1
+      let g:bufExplorerSortBy='name'
+    " }}}
+    " Buffer Tabline {{{
+      Plug 'ap/vim-buftabline'
+    " }}}
+    " Commentary {{{
+      Plug 'tpope/vim-commentary'
+    " }}}
+    " Completor {{{
+      Plug 'maralla/completor.vim'
+    " }}}
     " CtrlP {{{
       Plug 'ctrlpvim/ctrlp.vim'
+    " }}}
+    " GitGutter {{{
+      Plug 'airblade/vim-gitgutter'
+    " }}}
+    " Hybrid {{{
+      Plug 'w0ng/vim-hybrid'
+    " }}}
+    " Indent Guide {{{
+      Plug 'nathanaelkane/vim-indent-guides'
+      let g:indent_guide_start_level = 2
+    " }}}
+    " Leader Guide {{{
+      Plug 'hecal3/vim-leader-guide'
+    " }}}
+    " Obsession {{{
+      Plug 'tpope/vim-obsession'
+    " }}}
+    " Rainbow Parentheses {{{
+      Plug 'kien/rainbow_parentheses.vim'
+      au VimEnter * RainbowParenthesesToggle
+      au Syntax * RainbowParenthesesLoadRound
+      au Syntax * RainbowParenthesesLoadSquare
+      au Syntax * RainbowParenthesesLoadBraces
+    " }}}
+    " Supertab {{{
+      Plug 'ervandew/supertab'
+      let g:SuperTabDefaultCompletionType = "<c-n>"
+      let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }}}
     " Syntastic {{{
       Plug 'scrooloose/syntastic'
@@ -24,19 +71,38 @@
       let g:syntastic_error_symbol = '✗'
       let g:syntastic_warning_symbol = '!'
     " }}}
-    " Completor {{{
-      Plug 'maralla/completor.vim'
-    " }}}
-    " Supertab {{{
-      Plug 'ervandew/supertab'
-      let g:SuperTabDefaultCompletionType = "<c-n>"
-      let g:SuperTabContextDefaultCompletionType = "<c-n>"
-    " }}}
-    " GitGutter {{{
-      Plug 'airblade/vim-gitgutter'
-    " }}}
     " VDebug {{{
       Plug 'joonty/vdebug'
+    " }}}
+    " Vim Test {{{
+      Plug 'janko-m/vim-test'
+    " }}}
+
+    " CSharp {{{
+      Plug 'OrangeT/vim-csharp'
+      Plug 'OmniSharp/omnisharp-vim', {
+        \'do': 'cd server/ && xbuild && cd ../omnisharp-roslyn && ./build.sh'
+        \}
+      let g:OmniSharp_server_type = 'roslyn'
+    " }}}
+    " Elixir {{{
+      Plug 'elixir-lang/vim-elixir'
+      Plug 'slashmili/alchemist.vim'
+    " }}}
+    " Erlang {{{
+      Plug 'vim-erlang/vim-erlang-runtime'
+    " }}}
+    " FSharp {{{
+      Plug 'fsharp/vim-fsharp', {
+        \ 'for': 'fsharp',
+        \ 'do':  'make fsautocomplete',
+        \}
+    " }}}
+    " Haskell {{{
+      Plug 'eagletmt/neco-ghc'
+      Plug 'eagletmt/ghcmod-vim'
+      let g:haskellmode_completion_ghc = 0
+      autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     " }}}
     " PHP {{{
       Plug 'stanangeloff/php.vim'
@@ -51,50 +117,12 @@
 				autocmd FileType php call PhpSyntaxOverride()
 			augroup END
     " }}}
-    " TypeScript {{{
-      Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-      Plug 'Quramy/tsuquyomi'
-      Plug 'leafgarland/typescript-vim'
-      let g:tsuquyomi_disable_quickfix = 1
-      let g:syntastic_typescript_checkers = ['tsuquyomi'] 
-    " }}}
-    " Hybrid {{{
-      Plug 'w0ng/vim-hybrid'
-    " }}}
-    " Better Whitespace {{{
-      Plug 'ntpeters/vim-better-whitespace'
-    " }}}
-    " Commentary {{{
-      Plug 'tpope/vim-commentary'
-    " }}}
-    " Rust {{{
-      Plug 'rust-lang/rust.vim'
-      Plug 'racer-rust/vim-racer'
-      let g:rustfmt_autosave = 1
-    " }}}
-    " OmniSharp {{{
-      Plug 'OrangeT/vim-csharp'
-      Plug 'OmniSharp/omnisharp-vim', {
-        \'do': 'cd server/ && xbuild && cd ../omnisharp-roslyn && ./build.sh'
-        \}
-      let g:OmniSharp_server_type = 'roslyn'
-    " }}}
-    " FSharp {{{
-      Plug 'fsharp/vim-fsharp', {
-        \ 'for': 'fsharp',
-        \ 'do':  'make fsautocomplete',
-        \}
-    " }}}
-    " Swift {{{
-      Plug 'keith/swift.vim'
-      let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
-    " }}}
-    " Rainbow Parentheses {{{
-      Plug 'kien/rainbow_parentheses.vim'
-      au VimEnter * RainbowParenthesesToggle
-      au Syntax * RainbowParenthesesLoadRound
-      au Syntax * RainbowParenthesesLoadSquare
-      au Syntax * RainbowParenthesesLoadBraces
+    " Python {{{
+      " pip install flake8
+      Plug 'klen/python-mode'
+      Plug 'davidhalter/jedi-vim'
+      let g:pymode_lint                  = 0
+      let g:syntastic_python_flake8_args = '--ignore="F403,F405"'
     " }}}
     " Racket {{{
       Plug 'wlangstroth/vim-racket'
@@ -115,35 +143,21 @@
       let g:syntastic_ruby_exec              = '$HOME/.rbenv/shims/ruby'
       let g:syntastic_ruby_rubocop_exec      = '$HOME/.rbenv/shims/rubocop'
     " }}}
-    " Python {{{
-      " pip install flake8
-      Plug 'klen/python-mode'
-      Plug 'davidhalter/jedi-vim'
-      let g:pymode_lint                  = 0
-      let g:syntastic_python_flake8_args = '--ignore="F403,F405"'
+    " Rust {{{
+      Plug 'rust-lang/rust.vim'
+      Plug 'racer-rust/vim-racer'
+      let g:rustfmt_autosave = 1
     " }}}
-    " Indent Guide {{{
-      Plug 'nathanaelkane/vim-indent-guides'
-      let g:indent_guide_start_level = 2
+    " Swift {{{
+      Plug 'keith/swift.vim'
+      let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']
     " }}}
-    " Leader Guide {{{
-      Plug 'hecal3/vim-leader-guide'
-    " }}}
-    " Buffer Tabline {{{
-      Plug 'ap/vim-buftabline'
-    " }}}
-    " Buffer Explorer {{{
-      Plug 'vim-scripts/bufexplorer.zip'
-      let g:bufExplorerDefaultHelp=0
-      let g:bufExplorerShowRelativePath=1
-      let g:bufExplorerFindActive=1
-      let g:bufExplorerSortBy='name'
-    " }}}
-    " Vim Test {{{
-      Plug 'janko-m/vim-test'
-    " }}}
-    " Obsession {{{
-      Plug 'tpope/vim-obsession'
+    " TypeScript {{{
+      Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+      Plug 'Quramy/tsuquyomi'
+      Plug 'leafgarland/typescript-vim'
+      let g:tsuquyomi_disable_quickfix = 1
+      let g:syntastic_typescript_checkers = ['tsuquyomi'] 
     " }}}
     call plug#end()
   " }}}
