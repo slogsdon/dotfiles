@@ -20,7 +20,9 @@
   (setq company-tooltip-align-annotations t)
   (tide-setup)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1))
+  (eldoc-mode +1)
+  (setq typescript-indent-level 2)
+  (setq js2-indent-level 2))
 
 (use-package base16-theme
   :ensure t

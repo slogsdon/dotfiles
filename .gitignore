@@ -2,7 +2,7 @@
 emacs/.emacs.d/elpa/
 emacs/.emacs.d/projectile-bookmarks.eld
 
-# nvim
+# vim/nvim
 autoload/
 plugged/
 temp/

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-storage=(emacs git herbstluftwm nvim tmux util weechat xorg zsh)
+storage=(emacs git herbstluftwm vim nvim tmux util xorg zsh)
 
 pushd () {
   command pushd "$@" > /dev/null
