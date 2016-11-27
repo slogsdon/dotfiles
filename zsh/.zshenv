@@ -43,3 +43,6 @@ export PATH="$HOME/.linuxbrew/bin:$PATH"
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# php
+export PATH="$HOME/.composer/vendor/bin:$PATH"

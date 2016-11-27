@@ -18,9 +18,15 @@
 " Comments {{{
   let g:lmap.c = { 'name': 'Comment' }
   " comment line
-  map <leader>cl    gcc
+  map <leader>cl    gcc<esc>
   " comment paragraph
-  map <leader>cp    gcap
+  map <leader>cp    gcap<esc>
+" }}}
+" Errors {{{
+  let g:lmap.m = { 'name': 'Major Mode' }
+  nmap <leader>el    :call ToggleErrors()<cr>
+  nmap <leader>en    :lnext<cr>
+  nmap <leader>ep    :lprevious<cr>
 " }}}
 " Files {{{
   let g:lmap.f = { 'name': 'File' }
@@ -58,6 +64,7 @@
   let g:lmap.t = { 'name': 'Toggle' }
   " toggle paste
   nmap <leader>tp    :setlocal paste!<cr>
+  nmap <leader>tb    :call ToggleBackground()<cr>
 " }}}
 " Windows {{{
   let g:lmap.w = { 'name': 'Window' }

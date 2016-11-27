@@ -6,6 +6,15 @@
       call cursor(l, c)
   endfunc
 " }}}
+" Toggle errors location list {{{
+  function! ToggleErrors()
+    let old_last = winnr('$')
+    lclose
+    if winnr('$') == old_last
+      Errors
+    endif
+  endfunction
+" }}}
 " Gets text in buffer from visual selection {{{
   fun! s:get_visual_selection()
     let l=getline("'<")
@@ -104,4 +113,13 @@
       return lightline#statusline(0)
     endfunction
   " }}}
+" }}}
+" Toggle background {{{
+function! ToggleBackground()
+    if (&background == "light")
+      set background=dark
+    else
+       set background=light
+    endif
+endfunction
 " }}}

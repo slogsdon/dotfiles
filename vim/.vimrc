@@ -1,12 +1,11 @@
-" General {{{
-  " Plugins {{{
-		" Autoload Plug {{{
-			if empty(glob('~/.vim/autoload/plug.vim'))
-				silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-					\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-				autocmd VimEnter * PlugInstall | source $MYVIMRC
-			endif
-		" }}}
+" Plugins {{{
+    " Autoload Plug {{{
+      if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall | source $MYVIMRC
+      endif
+    " }}}
     call plug#begin('~/.vim/plugged')
     " Better Whitespace {{{
       Plug 'ntpeters/vim-better-whitespace'
@@ -24,17 +23,16 @@
     " Commentary {{{
       Plug 'tpope/vim-commentary'
     " }}}
-    " Completor {{{
-      Plug 'maralla/completor.vim'
+    " YouCompleteMe {{{
+      Plug 'Valloric/YouCompleteMe', {
+        \ 'do': './install.py --all',
+        \}
     " }}}
     " CtrlP {{{
       Plug 'ctrlpvim/ctrlp.vim'
     " }}}
     " GitGutter {{{
       Plug 'airblade/vim-gitgutter'
-    " }}}
-    " Hybrid {{{
-      Plug 'w0ng/vim-hybrid'
     " }}}
     " Indent Guide {{{
       Plug 'nathanaelkane/vim-indent-guides'
@@ -58,18 +56,13 @@
       let g:SuperTabDefaultCompletionType = "<c-n>"
       let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " }}}
-    " Syntastic {{{
-      Plug 'scrooloose/syntastic'
-      set statusline+=%#warningmsg#
-      set statusline+=%{exists('*SyntasticStatuslineFlag')?SyntasticStatuslineFlag():''}
-      set statusline+=%*
-
-      let g:syntastic_always_populate_loc_list = 1
-      let g:syntastic_auto_loc_list = 1
-      let g:syntastic_check_on_open = 1
-      let g:syntastic_check_on_wq = 0
-      let g:syntastic_error_symbol = '✗'
-      let g:syntastic_warning_symbol = '!'
+    " NeoMake {{{
+      Plug 'neomake/neomake'
+      autocmd! BufWritePost * Neomake
+    " }}}
+    " Themes {{{
+      Plug 'w0ng/vim-hybrid'
+      Plug 'morhetz/gruvbox'
     " }}}
     " VDebug {{{
       Plug 'joonty/vdebug'
@@ -103,19 +96,20 @@
       Plug 'eagletmt/ghcmod-vim'
       let g:haskellmode_completion_ghc = 0
       autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+      let g:ycm_semantic_triggers = {'haskell' : ['.']}
     " }}}
     " PHP {{{
       Plug 'stanangeloff/php.vim'
       Plug 'shawncplus/phpcomplete.vim'
-			function! PhpSyntaxOverride()
-				hi! def link phpDocTags  phpDefine
-				hi! def link phpDocParam phpType
-			endfunction
+      function! PhpSyntaxOverride()
+        hi! def link phpDocTags  phpDefine
+        hi! def link phpDocParam phpType
+      endfunction
 
-			augroup phpSyntaxOverride
-				autocmd!
-				autocmd FileType php call PhpSyntaxOverride()
-			augroup END
+      augroup phpSyntaxOverride
+        autocmd!
+        autocmd FileType php call PhpSyntaxOverride()
+      augroup END
     " }}}
     " Python {{{
       " pip install flake8
@@ -157,14 +151,9 @@
       Plug 'Quramy/tsuquyomi'
       Plug 'leafgarland/typescript-vim'
       let g:tsuquyomi_disable_quickfix = 1
-      let g:syntastic_typescript_checkers = ['tsuquyomi'] 
+      let g:syntastic_typescript_checkers = ['tsuquyomi']
     " }}}
     call plug#end()
-  " }}}
-  " Post PlugInstall Settings {{{
-    " Hybrid {{{
-      colorscheme hybrid
-    " }}}
   " }}}
   " Backups {{{
     set nobackup                                 " no backups
@@ -182,6 +171,11 @@
     set hlsearch                                 " highlight search matches
     set background=dark                          " use dark background
     set cursorline                               " highlight current line
+    " colorscheme hybrid
+    " if (has('termguicolors'))
+    "   set termguicolors
+    " endif
+    colorscheme gruvbox
   " }}}
   " Folds {{{
     set foldenable                               " enable folding
@@ -201,7 +195,10 @@
     set novisualbell                             " don't show the bell
     set foldcolumn=1                             " column size to show folds
     set laststatus=2                             " always show statusline
-    set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+    set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+    set statusline+=%#warningmsg#
+    set statusline+=\ %#ErrorMsg#%{neomake#statusline#QflistStatus('qf:\ ')}
+    set statusline+=%*
     set noshowmode                               " don't show mode in last line
     set linebreak                                " break long lines
     set textwidth=500
@@ -223,7 +220,8 @@
   " Misc {{{
     set history=100                              " command history length
     set autoread                                 " read file contents into buffer when modified outside of vim
-    set fileformats=unix,dos,mac                 " default to uniz line endings
+    set fileformats=unix,dos,mac                 " default to unix line endings
+    set spell                                    " default to spell checking everything
   " }}}
   " Search {{{
     set incsearch                                " show results while entering search
@@ -237,5 +235,5 @@
     set shiftwidth=2                             " how many columns text is indented with reindent operations
     set tabstop=2                                " visual spaces per tab
     set softtabstop=2                            " number of spaces in tab when editing
+    autocmd BufWritePre * call StripTrailingWhitespace()
   " }}}
-" }}}
