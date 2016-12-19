@@ -11,6 +11,7 @@ chpwd() {
     update_terminal_cwd
 }
 ## End zshuery
+source $HOME/.zshenv
 
 bindkey -v # force vi bindings
 
@@ -42,4 +43,7 @@ autoload -U bashcompinit && bashcompinit
 if which stack > /dev/null; then source <(stack --bash-completion-script `which stack`); fi
 
 # OPAM configuration
-. /home/user/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# phpenv
+if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi

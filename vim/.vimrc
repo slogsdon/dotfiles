@@ -23,10 +23,26 @@
     " Commentary {{{
       Plug 'tpope/vim-commentary'
     " }}}
-    " YouCompleteMe {{{
-      Plug 'Valloric/YouCompleteMe', {
-        \ 'do': './install.py --all',
-        \}
+    " Completion {{{
+      " Plug 'Valloric/YouCompleteMe', {
+      "   \ 'do': './install.py --all',
+      "   \}
+      Plug 'Shougo/neocomplete.vim'
+      " Use neocomplete.
+      let g:neocomplete#enable_at_startup = 1
+      " Use smartcase.
+      let g:neocomplete#enable_smart_case = 1
+      " Set minimum syntax keyword length.
+      let g:neocomplete#sources#syntax#min_keyword_length = 3
+      " Define keyword.
+      if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+      endif
+      let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+      " Enable heavy omni completion.
+      if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+      endif
     " }}}
     " CtrlP {{{
       Plug 'ctrlpvim/ctrlp.vim'
@@ -40,6 +56,12 @@
     " }}}
     " Leader Guide {{{
       Plug 'hecal3/vim-leader-guide'
+    " }}}
+    " Neomake {{{
+      Plug 'scrooloose/syntastic', {'for': ['ocaml', 'fsharp']}
+      Plug 'neomake/neomake'
+      autocmd! BufWritePost * Neomake
+      let g:neomake_open_list = 2
     " }}}
     " Obsession {{{
       Plug 'tpope/vim-obsession'
@@ -55,10 +77,13 @@
       Plug 'ervandew/supertab'
       let g:SuperTabDefaultCompletionType = "<c-n>"
       let g:SuperTabContextDefaultCompletionType = "<c-n>"
-    " }}}
-    " NeoMake {{{
-      Plug 'neomake/neomake'
-      autocmd! BufWritePost * Neomake
+      if has("gui_running")
+        imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+      else " no gui
+        if has("unix")
+          inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+        endif
+      endif
     " }}}
     " Themes {{{
       Plug 'w0ng/vim-hybrid'
@@ -71,6 +96,12 @@
       Plug 'janko-m/vim-test'
     " }}}
 
+    " Bash {{{
+      Plug 'vim-scripts/bash-support.vim'
+    " }}}
+    " Crystal {{{
+      Plug 'rhysd/vim-crystal'
+    " }}}
     " CSharp {{{
       Plug 'OrangeT/vim-csharp'
       Plug 'OmniSharp/omnisharp-vim', {
@@ -90,13 +121,64 @@
         \ 'for': 'fsharp',
         \ 'do':  'make fsautocomplete',
         \}
+      let g:syntastic_fsharp_checkers = ['syntax']
     " }}}
     " Haskell {{{
       Plug 'eagletmt/neco-ghc'
       Plug 'eagletmt/ghcmod-vim'
-      let g:haskellmode_completion_ghc = 0
-      autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-      let g:ycm_semantic_triggers = {'haskell' : ['.']}
+      let g:necoghc_enable_detailed_browse = 1
+    " }}}
+    " LFE {{{
+      Plug 'lfe-support/vim-lfe'
+    " }}}
+    " OCaml {{{
+      Plug 'rgrinberg/vim-ocaml'
+
+      " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+      let s:opam_share_dir = system("opam config var share")
+      let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+      let s:opam_configuration = {}
+
+      function! OpamConfOcpIndent()
+        execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+      endfunction
+      let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+      function! OpamConfOcpIndex()
+        execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+      endfunction
+      let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+      function! OpamConfMerlin()
+        let l:dir = s:opam_share_dir . "/merlin/vim"
+        execute "set rtp+=" . l:dir
+      endfunction
+      let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+      let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+      let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+      let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+      for tool in s:opam_packages
+        " Respect package order (merlin should be after ocp-index)
+        if count(s:opam_available_tools, tool) > 0
+          call s:opam_configuration[tool]()
+        endif
+      endfor
+      " ## end of OPAM user-setup addition for vim / base ## keep this line
+      " ## added by OPAM user-setup for vim / ocp-indent ## 91ca5483aee87df4abb2081c3e774cf9 ## you can edit, but keep this line
+      if count(s:opam_available_tools,"ocp-indent") == 0
+        source "/Users/shane.logsdon/.opam/system/share/vim/syntax/ocp-indent.vim"
+      endif
+      " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
+
+      let g:neomake_ocaml_merlin_maker = {
+        \ 'exe': 'ocamlmerlin',
+        \ 'args': ['-syntax-check'],
+        \ 'errorformat': '%f:%l:%c:%trror: %m'
+        \ }
+      " let g:neomake_ocaml_enabled_makers = ['merlin']
+      let g:syntastic_ocaml_checkers = ['merlin']
     " }}}
     " PHP {{{
       Plug 'stanangeloff/php.vim'
@@ -110,6 +192,8 @@
         autocmd!
         autocmd FileType php call PhpSyntaxOverride()
       augroup END
+      let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+      let g:phpcomplete_parse_docblock_comments = 1
     " }}}
     " Python {{{
       " pip install flake8
@@ -171,11 +255,14 @@
     set hlsearch                                 " highlight search matches
     set background=dark                          " use dark background
     set cursorline                               " highlight current line
-    " colorscheme hybrid
-    " if (has('termguicolors'))
-    "   set termguicolors
-    " endif
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set t_ut=                                    " force opaque background
+    let g:gruvbox_contrast_light = "soft"
     colorscheme gruvbox
+    if (has('termguicolors'))
+      set termguicolors
+    endif
   " }}}
   " Folds {{{
     set foldenable                               " enable folding
@@ -197,7 +284,6 @@
     set laststatus=2                             " always show statusline
     set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
     set statusline+=%#warningmsg#
-    set statusline+=\ %#ErrorMsg#%{neomake#statusline#QflistStatus('qf:\ ')}
     set statusline+=%*
     set noshowmode                               " don't show mode in last line
     set linebreak                                " break long lines

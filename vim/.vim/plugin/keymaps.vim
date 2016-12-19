@@ -64,7 +64,7 @@
   let g:lmap.t = { 'name': 'Toggle' }
   " toggle paste
   nmap <leader>tp    :setlocal paste!<cr>
-  nmap <leader>tb    :call ToggleBackground()<cr>
+  nmap <leader>tb    :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
 " }}}
 " Windows {{{
   let g:lmap.w = { 'name': 'Window' }

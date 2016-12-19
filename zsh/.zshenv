@@ -28,8 +28,9 @@ export PATH="$PATH:$HOME/.cabal/bin"
 # random tools
 export PATH="$PATH:$HOME/bin"
 
-# FSharp
+# .NET
 export MONO_GAC_PREFIX="/usr/local"
+export PATH="$PATH:/usr/local/share/dotnet"
 
 # Rust
 export PATH="$PATH:$HOME/.multirust/toolchains/stable/cargo/bin"
@@ -40,9 +41,10 @@ export CARGO_HOME="$HOME/.cargo"
 # Linuxbrew
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 
+# phpenv
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/.phpenv/bin:$PATH"
+
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-# php
-export PATH="$HOME/.composer/vendor/bin:$PATH"
