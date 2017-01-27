@@ -27,22 +27,24 @@
       " Plug 'Valloric/YouCompleteMe', {
       "   \ 'do': './install.py --all',
       "   \}
-      Plug 'Shougo/neocomplete.vim'
-      " Use neocomplete.
-      let g:neocomplete#enable_at_startup = 1
-      " Use smartcase.
-      let g:neocomplete#enable_smart_case = 1
-      " Set minimum syntax keyword length.
-      let g:neocomplete#sources#syntax#min_keyword_length = 3
-      " Define keyword.
-      if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-      endif
-      let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-      " Enable heavy omni completion.
-      if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-      endif
+      Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+      let g:deoplete#enable_at_startup = 1
+      " Plug 'Shougo/neocomplete.vim'
+      " " Use neocomplete.
+      " let g:neocomplete#enable_at_startup = 1
+      " " Use smartcase.
+      " let g:neocomplete#enable_smart_case = 1
+      " " Set minimum syntax keyword length.
+      " let g:neocomplete#sources#syntax#min_keyword_length = 3
+      " " Define keyword.
+      " if !exists('g:neocomplete#keyword_patterns')
+      "   let g:neocomplete#keyword_patterns = {}
+      " endif
+      " let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+      " " Enable heavy omni completion.
+      " if !exists('g:neocomplete#sources#omni#input_patterns')
+      "   let g:neocomplete#sources#omni#input_patterns = {}
+      " endif
     " }}}
     " CtrlP {{{
       Plug 'ctrlpvim/ctrlp.vim'
@@ -58,10 +60,11 @@
       Plug 'hecal3/vim-leader-guide'
     " }}}
     " Neomake {{{
-      Plug 'scrooloose/syntastic', {'for': ['ocaml', 'fsharp']}
-      Plug 'neomake/neomake'
-      autocmd! BufWritePost * Neomake
-      let g:neomake_open_list = 2
+      Plug 'scrooloose/syntastic'
+      let g:syntastic_always_populate_loc_list = 1
+      let g:syntastic_auto_loc_list = 1
+      let g:syntastic_check_on_open = 1
+      let g:syntastic_check_on_wq = 0
     " }}}
     " Obsession {{{
       Plug 'tpope/vim-obsession'
@@ -124,8 +127,10 @@
       let g:syntastic_fsharp_checkers = ['syntax']
     " }}}
     " Haskell {{{
+      Plug 'neovimhaskell/haskell-vim'
       Plug 'eagletmt/neco-ghc'
       Plug 'eagletmt/ghcmod-vim'
+      Plug 'parsonsmatt/intero-neovim'
       let g:necoghc_enable_detailed_browse = 1
     " }}}
     " LFE {{{
@@ -134,50 +139,44 @@
     " OCaml {{{
       Plug 'rgrinberg/vim-ocaml'
 
-      " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-      let s:opam_share_dir = system("opam config var share")
-      let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+      " " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+      " let s:opam_share_dir = system("opam config var share")
+      " let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
-      let s:opam_configuration = {}
+      " let s:opam_configuration = {}
 
-      function! OpamConfOcpIndent()
-        execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-      endfunction
-      let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+      " function! OpamConfOcpIndent()
+      "   execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+      " endfunction
+      " let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
 
-      function! OpamConfOcpIndex()
-        execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-      endfunction
-      let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+      " function! OpamConfOcpIndex()
+      "   execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+      " endfunction
+      " let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
 
-      function! OpamConfMerlin()
-        let l:dir = s:opam_share_dir . "/merlin/vim"
-        execute "set rtp+=" . l:dir
-      endfunction
-      let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+      " function! OpamConfMerlin()
+      "   let l:dir = s:opam_share_dir . "/merlin/vim"
+      "   execute "set rtp+=" . l:dir
+      " endfunction
+      " let s:opam_configuration['merlin'] = function('OpamConfMerlin')
 
-      let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-      let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-      let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-      for tool in s:opam_packages
-        " Respect package order (merlin should be after ocp-index)
-        if count(s:opam_available_tools, tool) > 0
-          call s:opam_configuration[tool]()
-        endif
-      endfor
-      " ## end of OPAM user-setup addition for vim / base ## keep this line
-      " ## added by OPAM user-setup for vim / ocp-indent ## 91ca5483aee87df4abb2081c3e774cf9 ## you can edit, but keep this line
-      if count(s:opam_available_tools,"ocp-indent") == 0
-        source "/Users/shane.logsdon/.opam/system/share/vim/syntax/ocp-indent.vim"
-      endif
-      " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
+      " let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+      " let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+      " let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+      " for tool in s:opam_packages
+      "   " Respect package order (merlin should be after ocp-index)
+      "   if count(s:opam_available_tools, tool) > 0
+      "     call s:opam_configuration[tool]()
+      "   endif
+      " endfor
+      " " ## end of OPAM user-setup addition for vim / base ## keep this line
+      " " ## added by OPAM user-setup for vim / ocp-indent ## 91ca5483aee87df4abb2081c3e774cf9 ## you can edit, but keep this line
+      " if count(s:opam_available_tools,"ocp-indent") == 0
+      "   source "/Users/shane.logsdon/.opam/system/share/vim/syntax/ocp-indent.vim"
+      " endif
+      " " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
 
-      let g:neomake_ocaml_merlin_maker = {
-        \ 'exe': 'ocamlmerlin',
-        \ 'args': ['-syntax-check'],
-        \ 'errorformat': '%f:%l:%c:%trror: %m'
-        \ }
-      " let g:neomake_ocaml_enabled_makers = ['merlin']
       let g:syntastic_ocaml_checkers = ['merlin']
     " }}}
     " PHP {{{
@@ -192,8 +191,9 @@
         autocmd!
         autocmd FileType php call PhpSyntaxOverride()
       augroup END
-      let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+      " let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
       let g:phpcomplete_parse_docblock_comments = 1
+      let g:neomake_php_phpcs_args_standard = 'PSR2'
     " }}}
     " Python {{{
       " pip install flake8
@@ -212,6 +212,9 @@
         au filetype racket setlocal autoindent
         au filetype racket setlocal lispwords+=public-method,override-method,private-method,syntax-case,syntax-rules
       endif
+    " }}}
+    " Reason {{{
+      " Plug 'reasonml/vim-reason-loader'
     " }}}
     " Ruby {{{
       " gem install rubocop
@@ -284,6 +287,7 @@
     set laststatus=2                             " always show statusline
     set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
     set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
     set noshowmode                               " don't show mode in last line
     set linebreak                                " break long lines
