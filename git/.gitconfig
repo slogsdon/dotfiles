@@ -11,4 +11,4 @@
 [credential]
 	helper = osxkeychain
 [core]
-	editor = /usr/local/bin/vim
+	editor = VIM

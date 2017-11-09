@@ -17,10 +17,13 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 # Racket
-export PATH="$PATH:/Applications/Racket/bin"
+# export PATH="$PATH:/Applications/Racket/bin"
 
 # Mix local
 export PATH="$PATH:$HOME/.mix"
+
+# Erlang
+export PATH="$PATH:$HOME/.cache/rebar3/bin"
 
 # Haskell
 export PATH="$PATH:$HOME/.cabal/bin"
@@ -33,9 +36,10 @@ export MONO_GAC_PREFIX="/usr/local"
 export PATH="$PATH:/usr/local/share/dotnet"
 
 # Rust
-export PATH="$PATH:$HOME/.multirust/toolchains/stable/cargo/bin"
+export RUST_DEFAULT_TOOLCHAIN="nightly-x86_64-apple-darwin"
+export PATH="$PATH:$HOME/.multirust/toolchains/$RUST_DEFAULT_TOOLCHAIN/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
-export RUST_SRC_PATH="/usr/local/src/rust/src"
+export RUST_SRC_PATH="$HOME/.multirust/toolchains/$RUST_DEFAULT_TOOLCHAIN/lib/rustlib/src/rust/src"
 export CARGO_HOME="$HOME/.cargo"
 
 # Linuxbrew

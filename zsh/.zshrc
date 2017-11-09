@@ -1,49 +1,39 @@
-## Start zshuery
-source $HOME/.dotfiles/zshuery/zshuery.sh
-load_defaults
-load_aliases
-load_completion $HOME/.dotfiles/zshuery/completion/src
-load_correction
+source ~/.zplug/init.zsh
 
-prompts '%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}$(ruby_version)%{$reset_color%}'
+zplug "zplug/zplug", hook-build:"zplug --self-manage"
+zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
+zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
 
-chpwd() {
-    update_terminal_cwd
-}
-## End zshuery
+# Install plugins if there are plugins that have not been installed
+if ! zplug check; then
+  zplug install
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+
 source $HOME/.zshenv
 
+# zsh settings
 bindkey -v # force vi bindings
-
-function zle-line-init zle-keymap-select {
-  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
-  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-  zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 export KEYTIMEOUT=1
+fpath=(/usr/local/share/zsh-completions $fpath)
+setopt auto_cd
 
+# theme settings
+export SPACESHIP_DOCKER_SHOW=false
+export SPACESHIP_VI_MODE_SHOW=false
+
+# aliases
 alias vi="nvim"
 alias vim="nvim"
 alias tmux="TERM=screen-256color-bce tmux"
 alias ec="emacsclient -t"
 alias ecg="emacsclient -c"
-fpath=(/usr/local/share/zsh-completions $fpath)
+alias :q="exit"
+alias la="ls -la"
 
-# rbenv
-if type rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+eval `opam config env`
 
-# ASPvNext
-if which dnvm.sh > /dev/null; then source dnvm.sh; fi
-
-# Haskell
-autoload -U bashcompinit && bashcompinit
-if which stack > /dev/null; then source <(stack --bash-completion-script `which stack`); fi
-
-# OPAM configuration
-. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-# phpenv
-if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
+source "$HOME/.asdf/asdf.sh"
+source "$HOME/.asdf/completions/asdf.bash"

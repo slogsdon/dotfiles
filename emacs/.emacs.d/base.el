@@ -1,4 +1,4 @@
-;;; general.el --- General settings.
+;;; base.el --- General settings.
 ;;; Commentary:
 ;;; Code:
 
@@ -7,7 +7,7 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize t)
 
-;; Bootstrap `use-package'
+;; Bootstrap `use-package`
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -16,7 +16,6 @@
   (let ((default-directory "~/.emacs.d/elpa"))
   (normal-top-level-add-subdirs-to-load-path))
   (require 'use-package))
-(require 'diminish)
 
 (setq backup-directory-alist `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
@@ -36,4 +35,6 @@
 	     ))
 
 (when (display-graphic-p) (set-frame-font "Fira Code 10"))
-;;; general.el ends here
+
+(provide 'my/base)
+;;; base.el ends here
