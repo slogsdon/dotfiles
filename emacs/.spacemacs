@@ -36,6 +36,7 @@ values."
      ;; spell-checking
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
+     gtags
      ;; version-control
      ;; restclient
      ;; ----------------------------------------------------------------
@@ -62,6 +63,8 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     autothemer
+     dash
      web-mode
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -118,10 +121,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(base16-eighties-dark
-                         spacemacs-dark
-                         base16-default-dark
-                         base16-tomorrow-dark
+   dotspacemacs-themes '(spacemacs-dark
+                         gruvbox
                          monokai
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -129,8 +130,8 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Fira Code"
-                               :size 10
-                               :weight normal
+                               :size 12
+                               :weight light
                                :width normal
                                :powerline-scale 1.1)
    ;; The leader key
@@ -276,11 +277,101 @@ layers configuration. You are free to put any user code."
   (setq powerline-default-separator nil
         js-indent-level 2
         typescript-indent-level 2
+        flycheck-phpcs-standard "PSR2"
         )
   (global-linum-mode 1)
   (global-company-mode)
   (add-to-list 'auto-mode-alist '("\\.p[pmd]+\\'" . racket-mode))
+  (add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+  ;; Code ligatures for standalone Emacs
+  (when (window-system)
+    (set-default-font "Fira Code"))
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                (36 . ".\\(?:>\\)")
+                (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                (48 . ".\\(?:x[a-zA-Z]\\)")
+                (58 . ".\\(?:::\\|[:=]\\)")
+                (59 . ".\\(?:;;\\|;\\)")
+                (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                (91 . ".\\(?:]\\)")
+                (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                (94 . ".\\(?:=\\)")
+                (119 . ".\\(?:ww\\)")
+                (123 . ".\\(?:-\\)")
+                (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                )
+              ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
+ '(compilation-message-face (quote default))
+ '(evil-want-Y-yank-to-eol t)
+ '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
+ '(highlight-tail-colors
+   (quote
+    (("#3C3D37" . 0)
+     ("#679A01" . 20)
+     ("#4BBEAE" . 30)
+     ("#1DB4D0" . 50)
+     ("#9A8F21" . 60)
+     ("#A75B00" . 70)
+     ("#F309DF" . 85)
+     ("#3C3D37" . 100))))
+ '(magit-diff-use-overlays nil)
+ '(package-selected-packages
+   (quote
+    (autothemer helm-gtags ggtags zenburn-theme monokai-theme yapfify yaml-mode ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tide typescript-mode tagedit spacemacs-theme spaceline powerline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-auto-yasnippets persp-mode pcre2el paradox spinner orgit org-plus-contrib org-bullets open-junk-file omnisharp ob-elixir org neotree move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero info+ indent-guide ido-vertical-mode hydra hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fsharp-mode company-quickhelp flycheck-rust seq flycheck-pos-tip pos-tip flycheck-mix flycheck-haskell flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight erlang emmet-mode dumb-jump drupal-mode php-mode diminish define-word cython-mode csharp-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-ghci company-ghc ghc haskell-mode company-cabal company-anaconda column-enforce-mode coffee-mode cmm-mode clean-aindent-mode chruby cargo rust-mode bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol anaconda-mode pythonic f s alchemist company dash elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup quelpa package-build base16-eighties-dark-theme)))
+ '(pos-tip-background-color "#A6E22E")
+ '(pos-tip-foreground-color "#272822")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
