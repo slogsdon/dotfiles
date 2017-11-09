@@ -2,8 +2,6 @@
 	email = shane@shanelogsdon.com
 	name = Shane Logsdon
 	signingkey = 8CFE600F
-[push]
-	default = simple
 [alias]
         log = log --graph --decorate --pretty=oneline --abbrev-commit
 [filter "lfs"]
