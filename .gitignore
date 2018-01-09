@@ -11,6 +11,7 @@ temp/
 vim/bundle/
 vim/.vim/spell/
 nvim/.config/nvim/dein
+!nvim/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
 # weechat
 weechat/logs/
