@@ -1,6 +1,23 @@
 #!/bin/bash
 
-storage=(emacs git herbstluftwm vim nvim tmux util xorg zsh)
+storage=(
+  # editors
+  emacs 
+  nvim 
+  vim 
+  # vcs
+  git 
+  # ui
+  herbstluftwm 
+  tmux 
+  xorg 
+  # comms
+  weechat 
+  # shells
+  zsh
+  # misc
+  util 
+)
 
 pushd () {
   command pushd "$@" > /dev/null

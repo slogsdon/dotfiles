@@ -5,53 +5,41 @@
   let g:lmap = {}
 " }}}
 " Buffers {{{
-  let g:lmap.b = { 'name': 'Buffers' }
+  let g:lmap.b = { 'name': '+buffer' }
   " buffer delete
   nmap <leader>bd    :bd<cr>
-  let g:lmap.b.d = ['bd', 'buffer delete']
+  let g:lmap.b.d = ['bd', 'delete']
   " buffer list
-  nmap <leader>bl    :BufExplorerHorizontalSplit<cr>
-  let g:lmap.b.l = ['BufExplorerHorizontalSplit', 'buffer list']
+  nmap <leader>bl    :Buffers<cr>
+  let g:lmap.b.l = ['Buffers', 'list']
   " buffer next
   nmap <leader>bn    :bnext<cr>
-  let g:lmap.b.n = ['bnext', 'buffer next']
+  let g:lmap.b.n = ['bnext', 'next']
   " buffer previous
   nmap <leader>bp    :bprev<cr>
-  let g:lmap.b.p = ['bprev', 'buffer previous']
-" }}}
-" Comments {{{
-  " comment line
-  nmap <leader>cl    gcc
-  " comment paragraph
-  nmap <leader>cp    gcap
+  let g:lmap.b.p = ['bprev', 'previous']
+  " focus last buffer
+  nmap <leader><tab> :b#<cr>
+  "let g:lmap['<tab>'] = ['b#', 'previous buffer']
 " }}}
 " Files {{{
+  let g:lmap.f = { 'name': '+file' }
   " file finder
-  nmap <leader>ff    :CtrlP<cr>
+  nmap <leader>ff    :Files<cr>
+  let g:lmap.f.f = ['Files', 'find']
   " file tree
   nmap <leader>ft    :Explore<cr>
+  let g:lmap.f.t = ['Explore', 'tree']
   " file save
   nmap <leader>fs    :w<cr>
+  let g:lmap.f.s = ['w', 'save']
   " file edit config
-  nmap <leader>fed   :e $MYVIMRC<cr>
+  let g:lmap.f.e = { 'name': '+editor' }
+  nmap <leader>fed   :e ~/.vimrc<cr>
+  let g:lmap.f.e.d = ['e ~/.vimrc', 'edit config']
   " file edit reload config
-  nmap <leader>feR   :w<cr>:source $MYVIMRC<cr>
-" }}}
-" Git {{{
-  " git status
-  nmap <leader>gs    :Gstatus<cr>
-  " git commit
-  nmap <leader>gc    :Gcommit<cr>
-  " git diff (file)
-  nmap <leader>gd    :Gdiff<cr>
-  " git pull
-  nmap <leader>gp    :Gpull<cr>
-  " git push
-  nmap <leader>gP    :Gpush<cr>p
-  " git fetch
-  nmap <leader>gf    :Gfetch<cr>
-  " git log
-  nmap <leader>gl    :Glog<cr>
+  nmap <leader>feR   :w<cr>:source ~/.vimrc<cr>
+  let g:lmap.f.e.R = ['w<cr>:source ~/.vimrc', 'save and source config']
 " }}}
 " Movement {{{
   " Treat long lines as break lines (useful when moving around in them)
@@ -72,45 +60,30 @@
   noremap   <Left>   <NOP>
   noremap   <Right>  <NOP>
 " }}}
-" Toggles {{{
-  " toggle paste
-  nmap <leader>tp    :setlocal paste!<cr>
-" }}}
 " Windows {{{
+  let g:lmap.w = { 'name': '+window' }
   " window (focus) down
   nmap <leader>wj    <C-W>j
+  let g:lmap.w.j = ['<C-W>j', 'focus down']
   " window (focus) up
   nmap <leader>wk    <C-W>k
+  let g:lmap.w.k = ['<C-W>k', 'focus up']
   " window (focus) left
   nmap <leader>wh    <C-W>h
+  let g:lmap.w.h = ['<C-W>h', 'focus left']
   " window (focus) right
   nmap <leader>wl    <C-W>l
+  let g:lmap.w.l = ['<C-W>l', 'focus right']
   " window quit
   nmap <leader>wq    :q<cr>
+  let g:lmap.w.q = ['q', 'quit']
   " window split horizontal
+  let g:lmap.w.s = { 'name': '+split' }
   nmap <leader>wsh   :split<cr>
+  let g:lmap.w.s.h = ['split', 'focus right']
   " window split vertical
   nmap <leader>wsv   :vsplit<cr>
-  " focus last window
-  nmap <leader><tab> :b#<cr>
-  " Tmux {{{
-    " window - tmux send (selection)
-    nmap <leader>wts   :call VimuxSendText(<SID>get_visual_selection())<cr>:call VimuxSendKeys("Enter")<cr>
-    " window - tmux open
-    nmap <leader>wto   :call VimuxOpenRunner()<cr>
-    " window - tmux run (command)
-    nmap <leader>wtr   :VimuxPromptCommand<cr>
-    " window - tmux last (command)
-    nmap <leader>wtl   :VimuxRunLastCommand<cr>
-    " window - tmux inspect
-    nmap <leader>wti   :VimuxInspectRunner<cr>
-    " window - tmux quit
-    nmap <leader>wtq   :VimuxCloseRunner<cr>
-    " window - tmux exit
-    nmap <leader>wtx   :VimuxInterruptRunner<cr>
-    " window - tmux zoom
-    nmap <leader>wtz   :call VimuxZoomRunner()<cr>
-  " }}}
+  let g:lmap.w.s.v = ['vsplit', 'focus right']
 " }}}
 " Test {{{
   " mode test all
@@ -124,3 +97,6 @@
   " mode test visit (last test file)
   nmap <leader>mtv   :TestVisit<cr>
 " }}}
+call leaderGuide#register_prefix_descriptions(" ", "g:lmap")
+nnoremap <silent> <leader> :<c-u>LeaderGuide ' '<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual ' '<CR>
