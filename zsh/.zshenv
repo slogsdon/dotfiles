@@ -52,3 +52,6 @@ export PATH="$HOME/.phpenv/bin:$PATH"
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# python
+export PYTHONDONTWRITEBYTECODE=1

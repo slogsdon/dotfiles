@@ -12,7 +12,7 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
-source $HOME/.zshenv
+source ~/.zshenv
 
 # zsh settings
 bindkey -v # force vi bindings
@@ -37,3 +37,4 @@ eval `opam config env`
 
 source "$HOME/.asdf/asdf.sh"
 source "$HOME/.asdf/completions/asdf.bash"
+source "$HOME/.cargo/env"
