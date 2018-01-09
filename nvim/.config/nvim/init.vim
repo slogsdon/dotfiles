@@ -75,6 +75,10 @@
       call dein#add('/usr/local/opt/fzf')
       call dein#add('junegunn/fzf.vim')
       call dein#add('Shougo/deoplete.nvim')
+      if !has('nvim')
+        call dein#add('roxma/nvim-yarp')
+        call dein#add('roxma/vim-hug-neovim-rpc')
+      endif
       call dein#add('autozimu/LanguageClient-neovim', {
         \ 'rev': 'next',
         \ 'build': 'bash install.sh',
@@ -123,13 +127,13 @@
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set t_Co=256
-    if has("nvim")
+    " if has("nvim")
       if has("termguicolors")
         set termguicolors
       endif
       set background=dark
       colorscheme space-vim-dark
-    endif
+    " endif
   " }}}
   " statusline {{{
     set statusline=%t       "tail of the filename
