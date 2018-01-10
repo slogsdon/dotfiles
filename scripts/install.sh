@@ -11,6 +11,7 @@ storage=(
   herbstluftwm 
   tmux 
   xorg 
+  chunkwm
   # comms
   weechat 
   # shells
