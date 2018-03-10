@@ -7,9 +7,10 @@
 [alias]
         log = log --graph --decorate --pretty=oneline --abbrev-commit
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 [credential]
 	helper = osxkeychain
 [core]

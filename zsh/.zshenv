@@ -41,6 +41,8 @@ export PATH="$PATH:$HOME/.multirust/toolchains/$RUST_DEFAULT_TOOLCHAIN/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export RUST_SRC_PATH="$HOME/.multirust/toolchains/$RUST_DEFAULT_TOOLCHAIN/lib/rustlib/src/rust/src"
 export CARGO_HOME="$HOME/.cargo"
+export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
+export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
 
 # Linuxbrew
 export PATH="$HOME/.linuxbrew/bin:$PATH"
@@ -55,3 +57,4 @@ export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # python
 export PYTHONDONTWRITEBYTECODE=1
+export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"

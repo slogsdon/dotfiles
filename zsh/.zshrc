@@ -38,3 +38,4 @@ eval `opam config env`
 source "$HOME/.asdf/asdf.sh"
 source "$HOME/.asdf/completions/asdf.bash"
 source "$HOME/.cargo/env"
+eval "$(rbenv init -)"

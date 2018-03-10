@@ -85,6 +85,7 @@
   nmap <leader>wsv   :vsplit<cr>
   let g:lmap.w.s.v = ['vsplit', 'focus right']
 " }}}
+nmap <Leader>m= :call LanguageClient_textDocument_formatting()<cr>
 " Test {{{
   " mode test all
   nmap <leader>mta   :TestSuite<cr>

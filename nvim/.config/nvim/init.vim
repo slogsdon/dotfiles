@@ -65,9 +65,17 @@
       call dein#add('racer-rust/vim-racer')
     " }}}
     " TypeScript {{{
-      call dein#add('mhartington/nvim-typescript', {
-        \ 'on_ft': ['typescript'],
-        \ })
+      " call dein#add('Shougo/vimproc.vim', {
+      "   \ 'build' : 'make',
+      "   \ })
+      " call dein#add('Quramy/tsuquyomi', {
+      "   \ 'on_ft': ['typescript'],
+      "   \ })
+      if has('nvim')
+        call dein#add('mhartington/nvim-typescript', {
+          \ 'on_ft': ['typescript'],
+          \ })
+      endif
     " }}}
     " Miscellaneous {{{
       call dein#add('liuchengxu/space-vim-dark')
@@ -84,9 +92,6 @@
         \ 'build': 'bash install.sh',
         \ })
       call dein#add('hecal3/vim-leader-guide')
-      call dein#add('prettier/vim-prettier', {
-        \ 'build': 'yarn install',
-        \ })
       call dein#add('sheerun/vim-polyglot')
     " }}}
 
@@ -191,13 +196,10 @@
       \ 'ocaml': ['ocaml-language-server', '--stdio'],
       \ 'reason': ['ocaml-language-server', '--stdio'],
       \ }
+    let g:LanguageClient_diagnosticsEnable = 0
   " }}}
   " polyglot {{{
     let g:polyglot_disabled = ['fsharp']
-  " }}}
-  " prettier {{{
-    let g:prettier#autoformat = 0
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
   " }}}
   " vim-jsx-pretty {{{
     autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
