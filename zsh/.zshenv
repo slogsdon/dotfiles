@@ -50,6 +50,7 @@ export PATH="$HOME/.linuxbrew/bin:$PATH"
 # phpenv
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/.phpenv/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -58,3 +59,7 @@ export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 # python
 export PYTHONDONTWRITEBYTECODE=1
 export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
+
+# android
+export PATH="/Users/shane.logsdon/Library/Android/sdk/platform-tools:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"

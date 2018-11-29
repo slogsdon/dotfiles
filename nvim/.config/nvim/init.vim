@@ -4,6 +4,7 @@
   endif
 
   set runtimepath+=$HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+  set runtimepath+=/usr/local/bin/fzf
 
   if dein#load_state(expand('~/.config/nvim/dein'))
     call dein#begin(expand('~/.config/nvim/dein'))
@@ -11,6 +12,12 @@
     " Let dein manage dein
     call dein#add(expand('~/.config/nvim/dein/repos/github.com/Shougo/dein.vim'))
 
+    " LanguageClient {{{
+      call dein#add('autozimu/LanguageClient-neovim', {
+        \ 'rev': 'next',
+        \ 'build': 'bash install.sh',
+        \ })
+    " }}}
     " BEAM {{{
       call dein#add('slashmili/alchemist.vim', {
         \ 'on_ft': ['elixir'],
@@ -47,6 +54,10 @@
         \ 'build': 'composer install',
         \ 'on_ft': ['php'],
         \ })
+      " call dein#add('roxma/LanguageServer-php-neovim', {
+      "   \ 'build': 'composer install && composer run-script parse-stubs',
+      "   \ 'on_ft': ['php'],
+      "   \ })
     " }}}
     " Python {{{
       call dein#add('python-mode/python-mode', {
@@ -65,20 +76,19 @@
       call dein#add('racer-rust/vim-racer')
     " }}}
     " TypeScript {{{
-      " call dein#add('Shougo/vimproc.vim', {
-      "   \ 'build' : 'make',
-      "   \ })
-      " call dein#add('Quramy/tsuquyomi', {
-      "   \ 'on_ft': ['typescript'],
-      "   \ })
-      if has('nvim')
-        call dein#add('mhartington/nvim-typescript', {
-          \ 'on_ft': ['typescript'],
-          \ })
-      endif
+      call dein#add('Shougo/vimproc.vim', {
+        \ 'build' : 'make',
+        \ })
+      call dein#add('Quramy/tsuquyomi', {
+        \ 'on_ft': ['typescript'],
+        \ })
+      " if has('nvim')
+      "   call dein#add('mhartington/nvim-typescript', {
+      "     \ 'on_ft': ['typescript'],
+      "     \ })
+      " endif
     " }}}
     " Miscellaneous {{{
-      call dein#add('liuchengxu/space-vim-dark')
       call dein#add('w0rp/ale')
       call dein#add('/usr/local/opt/fzf')
       call dein#add('junegunn/fzf.vim')
@@ -87,12 +97,9 @@
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
       endif
-      call dein#add('autozimu/LanguageClient-neovim', {
-        \ 'rev': 'next',
-        \ 'build': 'bash install.sh',
-        \ })
       call dein#add('hecal3/vim-leader-guide')
       call dein#add('sheerun/vim-polyglot')
+      call dein#add('morhetz/gruvbox')
     " }}}
 
     call dein#end()
@@ -132,13 +139,12 @@
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set t_Co=256
-    " if has("nvim")
-      if has("termguicolors")
-        set termguicolors
-      endif
-      set background=dark
-      colorscheme space-vim-dark
-    " endif
+    set background=dark
+    
+    if has("termguicolors")
+      set termguicolors
+    endif
+    colorscheme gruvbox
   " }}}
   " statusline {{{
     set statusline=%t       "tail of the filename
@@ -190,11 +196,17 @@
       \ }
   " }}}
   " languageclient {{{
+    " PHP setup:
+    " composer global require felixfbecker/language-server
+    " composer run-script --working-dir="$(which php-language-server.php)/../.." parse-stubs
+    let s:lsphp = $HOME . '/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php'
     let g:LanguageClient_serverCommands = {
       \ 'javascript': ['javascript-typescript-stdio'],
       \ 'javascript.jsx': ['javascript-typescript-stdio'],
       \ 'ocaml': ['ocaml-language-server', '--stdio'],
       \ 'reason': ['ocaml-language-server', '--stdio'],
+      \ 'typescript': ['javascript-typescript-stdio'],
+      \ 'typescript.jsx': ['javascript-typescript-stdio'],
       \ }
     let g:LanguageClient_diagnosticsEnable = 0
   " }}}
