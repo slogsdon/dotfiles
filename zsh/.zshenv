@@ -1,4 +1,4 @@
-export EDITOR='vim'
+export EDITOR='nvim'
 export LANG=en_US.UTF-8
 export LC_ALL="$LANG"
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"

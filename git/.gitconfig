@@ -14,7 +14,7 @@
 [credential]
 	helper = osxkeychain
 [core]
-	editor = vim
+	editor = nvim
 	autocrlf = false
 	excludesfile = ~/.gitignore_global
 [init]
