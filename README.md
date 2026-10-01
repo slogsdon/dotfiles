@@ -11,12 +11,17 @@ git clone git@github.com:slogsdon/dotfiles .dotfiles
 
 ```
 cd ~/.dotfiles
-bash setup-system.sh
+bash scripts/setup-system.sh
 ```
 
 ## Create dotfile symlinks
 
 ```
 cd ~
-bash .dotfiles/install.sh
+bash .dotfiles/scripts/install.sh
 ```
+
+## Machine-local files (untracked)
+
+- `~/.zshenv.local` — API keys and other secrets; sourced by `.zshenv`
+- `~/.gitconfig.local` — machine-specific git config; included by `.gitconfig`

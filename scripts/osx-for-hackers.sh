@@ -52,32 +52,12 @@ sudo scutil --set HostName $COMPUTER_NAME
 sudo scutil --set LocalHostName $COMPUTER_NAME
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMPUTER_NAME
 
-echo "Hiding the Time Machine, Volume, User, and Bluetooth icons"
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  defaults write "${domain}" dontAutoLoad -array \
-    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-    "/System/Library/CoreServices/Menu Extras/User.menu"
-done
-defaults write com.apple.systemuiserver menuExtras -array \
-  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
-echo "Hide the Spotlight icon?"
-select yn in "Yes" "No"; do
-  case $yn in
-    Yes ) sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-        break;;
-    No ) break;;
-  esac
-done
 
 echo "Disabling OS X Gate Keeper"
 echo "(You'll be able to install any app you want from here on, not just Mac App Store apps)"
 sudo spctl --master-disable
-sudo defaults write /var/db/SystemPolicy-prefs.plist enabled -string no
+echo "  -> confirm \"Anywhere\" in System Settings > Privacy & Security"
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 echo "Increasing the window resize speed for Cocoa applications"
@@ -108,7 +88,7 @@ echo "Reveal IP address, hostname, OS version, etc. when clicking the clock in t
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 echo "Never go into computer sleep mode"
-systemsetup -setcomputersleep Off > /dev/null
+sudo pmset -a sleep 0
 
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -365,22 +345,6 @@ defaults write org.m0k.transmission WarningLegal -bool false
 # Personal Additions
 ###############################################################################
 
-echo "Disable hibernation (speeds up entering sleep mode)"
-sudo pmset -a hibernatemode 0
-
-echo "Remove the sleep image file to save disk space"
-sudo rm /Private/var/vm/sleepimage
-echo "creating a zero-byte file instead"
-sudo touch /Private/var/vm/sleepimage
-echo "and make sure it can't be rewritten"
-sudo chflags uchg /Private/var/vm/sleepimage
-
-# echo "Disable the sudden motion sensor as it's not useful for SSDs"
-# sudo pmset -a sms 0
-
-echo "Speeding up wake from sleep to 24 hours from an hour"
-# http://www.cultofmac.com/221392/quick-hack-speeds-up-retina-macbooks-wake-from-sleep-os-x-tips/
-sudo pmset -a standbydelay 86400
 
 echo "Disable annoying backswipe in Chrome"
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false

@@ -2,10 +2,11 @@
 
 # Check for Homebrew,
 # Install if we don't have it
-if test ! $(which brew); then
+if ! command -v brew >/dev/null && [ ! -x /opt/homebrew/bin/brew ]; then
   echo "==> installing homebrew..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Update homebrew recipes
 brew update
@@ -18,13 +19,18 @@ binaries=(
   tree
   hub
   git
+  git-lfs
+  gh
   hg
   tmux
-  reattach-to-user-namespace
-  neovim/neovim/neovim
+  neovim
   svn
   wrk
   ansible
+  docker
+  zplug
+  stow
+  starship
   # Languages
   python
   node
@@ -33,19 +39,50 @@ binaries=(
   haskell-stack
   go
   lua
-  plt-racket
+  # plt-racket
   sbcl
-  homebrew/php/php56
+  php
+  composer
   leiningen # clojure
   clojurescript
-  dmd # dlang
+  ldc # dlang (dmd is x86-only)
   rbenv
   ruby-build
+  openjdk
+  rust
+  fzf
+  ripgrep
 )
 
 echo "==> installing binaries..."
 brew install ${binaries[@]}
-brew install weechat --with-lua --with-perl --with-python --with-ruby
+
+casks=(
+  orbstack
+  ollama
+  iterm2
+  1password
+  google-chrome
+  firefox
+  microsoft-edge
+  visual-studio-code
+  visual-studio
+  obs
+  obs-virtualcam
+  arduino
+  dotnet-sdk
+  android-studio
+  amethyst
+  monitorcontrol
+  cursor
+  orcaslicer
+  claude
+  ghostty
+  obsidian
+)
+
+echo "==> installing cask binaries..."
+brew install --cask ${casks[@]}
 
 brew cleanup
 
@@ -54,15 +91,15 @@ brew cleanup
 sudo chown root:wheel `brew --prefix htop`/bin/htop
 sudo chmod u+s `brew --prefix htop`/bin/htop
 
-## JDK
-echo "==> download JDK"
-open "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"
+## JDK (brew openjdk; let /usr/bin/java find it)
+sudo ln -sfn "$(brew --prefix openjdk)/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk.jdk
 
 ## ZSH
 echo "==> setting zsh as login shell..."
-sudo -s "echo "/usr/local/bin/zsh" >> /etc/shells"
-chsh -s /usr/local/bin/zsh
+BREW_ZSH="$(brew --prefix)/bin/zsh"
+grep -qx "$BREW_ZSH" /etc/shells || echo "$BREW_ZSH" | sudo tee -a /etc/shells >/dev/null
+chsh -s "$BREW_ZSH"
 
 ## Defaults
 echo "==> setting system defaults"
-bash osx-for-hackers.sh
+bash "$(dirname "$0")/osx-for-hackers.sh"
