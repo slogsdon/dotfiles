@@ -1,19 +1,23 @@
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
-source $ZPLUG_HOME/init.zsh
+if [ -f "$ZPLUG_HOME/init.zsh" ]; then
+  source $ZPLUG_HOME/init.zsh
 
-zplug "zplug/zplug", hook-build:"zplug --self-manage"
-# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
-zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
-zplug "zsh-users/zsh-syntax-highlighting", from:"github", defer:2
+  zplug "zplug/zplug", hook-build:"zplug --self-manage"
+  # zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+  zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
+  zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
+  zplug "zsh-users/zsh-syntax-highlighting", from:"github", defer:2
 
-# Install plugins if there are plugins that have not been installed
-if ! zplug check; then
-  zplug install
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check; then
+    zplug install
+  fi
+
+  # Then, source plugins and add commands to $PATH
+  zplug load
+else
+  echo "zplug not found — run: brew install zplug" >&2
 fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
 
 source ~/.zshenv
 
