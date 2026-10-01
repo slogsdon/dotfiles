@@ -2,7 +2,6 @@ export ZPLUG_HOME=/opt/homebrew/opt/zplug
 if [ -f "$ZPLUG_HOME/init.zsh" ]; then
   source $ZPLUG_HOME/init.zsh
 
-  zplug "zplug/zplug", hook-build:"zplug --self-manage"
   # zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
   zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
   zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
