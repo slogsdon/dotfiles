@@ -10,11 +10,12 @@ temp/
 .netrwhist
 vim/bundle/
 vim/.vim/spell/
-nvim/.config/nvim/dein
-!nvim/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
 # weechat
 weechat/logs/
 weechat/weechat.log
 
 .DS_Store
+
+# machine-local overrides / secrets
+*.local
