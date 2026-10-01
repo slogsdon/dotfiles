@@ -15,3 +15,15 @@
 	helper = osxkeychain
 [core]
 	editor = vim
+	autocrlf = false
+	excludesfile = ~/.gitignore_global
+[init]
+	defaultBranch = main
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[include]
+	path = ~/.gitconfig.local
