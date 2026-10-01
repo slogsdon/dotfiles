@@ -1,8 +1,11 @@
-source ~/.zplug/init.zsh
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
+# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
+zplug "sindresorhus/pure", use:"pure.zsh", from:"github", as:"theme"
+zplug "zsh-users/zsh-syntax-highlighting", from:"github", defer:2
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check; then
@@ -14,43 +17,43 @@ zplug load
 
 source ~/.zshenv
 
-function gtree {
-  git_ignore_files=("$(git config --get core.excludesfile)" .gitignore ~/.gitignore)
-  ignore_pattern="$(grep -hvE '^$|^#' "${git_ignore_files[@]}" 2>/dev/null|sed 's:/$::'|tr '\n' '\|')"
-  if git status &> /dev/null && [[ -n "${ignore_pattern}" ]]; then
-    tree -I "${ignore_pattern}" "${@}"
-  else 
-    tree "${@}"
-  fi
-}
-
 # zsh settings
-bindkey -v # force vi bindings
 export KEYTIMEOUT=1
 fpath=(/usr/local/share/zsh-completions $fpath)
 setopt auto_cd
-
-# theme settings
-export SPACESHIP_DOCKER_SHOW=false
-export SPACESHIP_VI_MODE_SHOW=false
 
 # aliases
 alias vi="nvim"
 alias vim="nvim"
 alias tmux="TERM=screen-256color-bce tmux"
-alias ec="emacsclient -t"
-alias ecg="emacsclient -c"
-alias :q="exit"
 alias la="ls -la"
 
-# eval `opam config env`
+# source "$HOME/.cargo/env"
 
-source "$HOME/.asdf/asdf.sh"
-source "$HOME/.asdf/completions/asdf.bash"
-source "$HOME/.cargo/env"
+# bun completions
+[ -s "/Users/shane/.bun/_bun" ] && source "/Users/shane/.bun/_bun"
 
-PATH="/Users/shane.logsdon/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/Users/shane.logsdon/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/shane.logsdon/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/shane.logsdon/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/shane.logsdon/perl5"; export PERL_MM_OPT;
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by Windsurf
+export PATH="/Users/shane/.codeium/windsurf/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/shane/.lmstudio/bin"
+# End of LM Studio CLI section
+
+export PATH="$HOME/.local/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# added by mercury installer
+export PATH="/Users/shane/.mercury/bin:$PATH"
+
+
+# Durable Herdr session entry point, tracked with agent configuration.
+[ -f "$HOME/Code/claude-code-config/snippets/herdr-shell.zsh" ] && source "$HOME/Code/claude-code-config/snippets/herdr-shell.zsh"
+
+# Added by MTPLX.app — terminal command
+export PATH="$HOME/.mtplx/bin:$PATH"
