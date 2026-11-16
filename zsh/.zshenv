@@ -4,6 +4,7 @@ export LC_ALL="$LANG"
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
 
 export OBSIDIAN_VAULT_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Personal"
+export CLAUDE_CODE_EXPERIMENTAL_CODE_MODE=1
 
 # Go
 export GOPATH=$HOME/Code/go
